@@ -37,7 +37,7 @@ public class Order {
      * @return internal Order entity
      */
     public static Order getOrderFromString(String orderString) {
-        String[] orderParams = orderString.split(" ");
+        String[] orderParams = orderString.split("\\s+");
         List<Integer> hoursMinutes =
                 Arrays.stream(orderParams[1].split(":")).map(Integer::valueOf).collect(Collectors.toList());
         LocalDateTime orderTime = LocalDateTime.of(2021, 1, 1, hoursMinutes.get(0), hoursMinutes.get(1));

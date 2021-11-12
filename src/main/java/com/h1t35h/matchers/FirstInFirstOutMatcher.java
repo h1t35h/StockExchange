@@ -8,7 +8,11 @@ import java.math.BigInteger;
 import java.util.*;
 
 /**
- * Matcher for
+ * Matcher for FirstInFirstOut Price-Time order-matching rule, which states that:
+ * "The first order in the order-book at a price level is the first order matched.
+ * All orders at the same price level are filled according to time priority."
+ * The exchange works like a market where lower selling prices and higher buying prices get priority.
+ * @author hitesy
  */
 public class FirstInFirstOutMatcher implements Matcher {
 

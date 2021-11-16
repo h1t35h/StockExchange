@@ -4,6 +4,7 @@ import com.h1t35h.entities.CompletedOrder;
 import com.h1t35h.entities.Order;
 import com.h1t35h.matchers.FirstInFirstOutMatcher;
 import com.h1t35h.matchers.Matcher;
+import com.h1t35h.store.OrderStore;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -19,9 +20,28 @@ import java.util.Map;
  */
 public class StockExchange {
     private final Map<String, Matcher> stockToMatcher;
+    private final OrderStore orderStore;
 
     public StockExchange() {
         stockToMatcher = new HashMap<>();
+        orderStore = null;
+    }
+
+
+    public boolean placeOrder(Order order) {
+        orderStore.storeOrder(order);
+        List<CompletedOrder> orders = new ArrayList<>();
+        String stock = order.getStock();
+        if (stockToMatcher.containsKey(stock)) {
+            List<CompletedOrder> completedOrders = stockToMatcher.get(stock).addOrder(order);
+            orders.addAll(completedOrders);
+            completedOrders.forEach(System.out::println);
+
+        } else {
+            stockToMatcher.put(stock, new FirstInFirstOutMatcher());
+            stockToMatcher.get(stock).addOrder(order);
+        }
+
     }
 
     public List<CompletedOrder> main(String[] args) throws IOException {

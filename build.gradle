@@ -64,6 +64,9 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version:'5.2.0'
 
+    //Indexing and storage
+    implementation 'com.googlecode.cqengine:cqengine:3.6.0'
+
     // Dependencies for Lombok
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
